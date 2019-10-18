@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>家族树</title>
+    <script type="text/javascript" src="../../../js/jquery-1.4.4.min.js"></script>
+    <script type="text/javascript" src="../../../js/jquery.ztree.core.js"></script>
+    <SCRIPT type="text/javascript">
+        var zNodes=[];
+        var q=0;
+        function huoqu() {
+            var array = $("#textid").val();
+            var array1 = array.split("\n\n");
+            var d = 1;
+            var b = 10;
+            var p1 = /导师/;
+            var p2 = /博士生/;
+            var p3 = /硕士生/;
+            var p4 = /本科生/;
+            for (var i = 0, n = array1.length; i < n; i++) {
+                if (p1.test(array1[i])) {
+                    zNodes[q] = {id: d, pId: 0, name: array1[i].replace('导师：','')};
+                    q++;}
+                if(p2.test(array1[i])){
+                    var Name=array1[i].split("：")
+                    var arr=Name[1].split("、")
+                    zNodes[q]={id:b,pId:d,name:Name[0]};q++;
+                    for(var j=1;j<=arr.length;j++) {
+                            zNodes[q]={id:b+j,pId:b,name:arr[j-1]};q++;
+                    }b=b+10;
+                    }
+                if(p3.test(array1[i])){
+                    var Name1=array1[i].split("：")
+                    var arr1=Name1[1].split("、")
+                    zNodes[q]={id:b,pId:d,name:Name1[0]};q++;
+                    for(var l=1;l<=arr.length;l++) {
+                        zNodes[q]={id:b+l,pId:b,name:arr1[l-1]};q++;
+                    }b=b+10;
+                }
+                if(p4.test(array1[i])){
+                    var Name2=array1[i].split("：")
+                    var arr2=Name2[1].split("、")
+                    zNodes[q]={id:b,pId:d,name:Name2[0]};q++;
+                    for(var m=1;m<=arr.length;m++) {
+                        zNodes[q]={id:b+l,pId:b,name:arr1[m-1]};q++;
+                    }b=b+10;
+                }
+            }
+            alert(q);
+            window.localStorage.e=q;
+            var Data = JSON.stringify(zNodes)
+            window.localStorage.k =Data;
+            window.location.href='2.html';
+        }
+    </SCRIPT>
+</head>
+<body >
+<div>
+    <textarea rows="10",cols="20"   id="textid" placeholder="请输入文本"></textarea>
+    <input type="button" value="提交" onclick="huoqu()"/>
+    <ul class="ztree" id="treeDemo"></ul>
+</div>
+</body>
+</html>

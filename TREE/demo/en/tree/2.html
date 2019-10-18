@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../../../css/demo.css" type="text/css">
+    <link rel="stylesheet" href="../../../css/zTreeStyle/zTreeStyle.css" type="text/css">
+    <script type="text/javascript" src="../../../js/jquery-1.4.4.min.js"></script>
+    <script type="text/javascript" src="../../../js/jquery.ztree.core.js"></script
+</head>
+
+
+<body>
+<SCRIPT>
+    var q=localStorage.e;
+    var data=localStorage.k;
+    var Ob= JSON.parse(data);
+    var setting = {
+        data: {//表示tree的数据格式
+            simpleData: {
+                enable: true,//表示使用简单数据模
+            }
+        }
+    };
+    $(document).ready(function(){
+        $.fn.zTree.init($("#treeDemo"), setting,Ob);});
+</SCRIPT>
+</body>
+    <ul class="ztree" id="treeDemo"></ul>
+</html>
